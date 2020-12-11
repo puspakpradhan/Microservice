@@ -1,0 +1,129 @@
+version: '3.1'
+services:
+    eureka:
+        image: puspakpradhan/eurekaserver-image:1
+        container_name: "eureka-server-container"
+        expose:
+            - 8761
+        ports:
+            - 8761:8761
+            
+            
+    rabbitmq:
+       image: rabbitmq:management
+       container_name: "rabbitmq"
+       ports:
+            - "5672:5672"
+            - "15672:15672"
+            
+    webapp:
+        image: puspakpradhan/shoppingcart-image:1
+        container_name: "shopping-cart-ms"
+        expose:
+            - 8080
+        ports:
+            - 8080:8080
+        environment:
+            EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+            SPRING_APPLICATION_NAME: shopping-cart-ms
+        depends_on:
+            - eureka
+        networks:
+            - backend         
+            
+            
+    accountloginservice:
+        image: puspakpradhan/accountlogin-image:1
+        container_name: "account-Login-ms"
+        expose:
+            - 9192
+        ports:
+            - 9192:9192        
+        environment:
+            EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+            SPRING_APPLICATION_NAME: account-Login-ms
+        depends_on:
+            - eureka
+        networks:
+            - backend          
+            
+    productservice:
+        image: puspakpradhan/product-image:1
+        container_name: "product-ms"
+        expose:
+            - 9193
+        ports:
+            - 9193:9193        
+        environment:
+            EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+            SPRING_APPLICATION_NAME: product-ms
+        depends_on:
+            - rabbitmq
+            - eureka
+        networks:
+            - backend         
+            
+            
+    cartservice:
+        image: puspakpradhan/cart-image:1
+        container_name: "cart-ms"
+        expose:
+            - 9194
+        ports:
+            - 9194:9194        
+        environment:
+            EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+            SPRING_RABBITMQ_HOST: rabbitmq
+            SPRING_APPLICATION_NAME: cart-ms
+        depends_on:
+            - rabbitmq
+            - eureka
+        networks:
+            - backend     
+            
+            
+    orderservice:
+        image: puspakpradhan/order-image:1
+        container_name: "order-ms"
+        expose:
+            - 9196
+        ports:
+            - 9196:9196        
+        environment:
+            EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+            SPRING_RABBITMQ_HOST: rabbitmq
+            SPRING_APPLICATION_NAME: order-ms
+        depends_on:
+            - rabbitmq
+            - eureka
+        networks:
+            - backend         
+            
+    auditservice:
+        image: puspakpradhan/audit-image:1
+        container_name: "audit-ms"
+        expose:
+            - 9197
+        ports:
+            - 9197:9197        
+        environment:
+            EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka
+            SPRING_RABBITMQ_HOST: rabbitmq
+            SPRING_APPLICATION_NAME: audit-ms
+        depends_on:
+            - rabbitmq
+            - eureka
+            
+        networks:
+            - backend
+            
+networks:
+    backend:
+        driver: "bridge"     
+            
+            
+            
+            
+            
+            
+            

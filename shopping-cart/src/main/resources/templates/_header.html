@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<div class="header-container"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+ 
+   <div class="site-name">MS Case Study.</div>
+   
+   <div class="header-bar">
+      <th:block sec:authorize="isAuthenticated()">
+         Welcome
+         <!-- <a th:href="@{/admin/accountInfo}" th:utext="${#request.userPrincipal.name}">..</a> -->
+         <a th:href="@{/admin/accountInfo}" th:utext="Puspak">..</a>
+         &nbsp;|&nbsp;
+         <a th:href="@{/admin/logout}">Logout</a>
+      </th:block>
+       
+      <!-- <th:block sec:authorize="!isAuthenticated()">
+         <a th:href="@{/admin/login}">Login</a>
+      </th:block> -->
+   </div>
+   
+</div>
+
+</body>
+</html>

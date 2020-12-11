@@ -1,0 +1,51 @@
+version: '3.1'
+
+#networks:
+#    backend:
+#        driver: "bridge" 
+
+services:
+    eureka-server:
+        image: puspakpradhan/eurekaserver-image:1
+        container_name: "eureka-server"
+        expose:
+            - 8761
+        ports:
+            - 8761:8761
+        environment:
+            eureka.client.register-with-eureka: 'false'
+            eureka.client.fetch-registry: 'false'
+            
+            
+    webapp:
+       image: puspakpradhan/shoppingcart-image:1
+       container_name: "shopping-cart-ms"
+       expose:
+           - 9191
+       ports:
+           - 9191:9191
+        
+       environment:
+            spring.application.name: shopping-cart-ms
+            eureka.client.service-url.default-zone: http://eureka-server:8761/eureka
+            eureka.client.register-with-eureka: 'true'
+            eureka.client.fetchRegistry : 'true'
+            eureka.client.prefer-same-zone-eureka: 'true'
+            eureka.instance.hostname: eureka-server
+            
+            
+       #depends_on:
+       #     - eureka-server
+      # networks:
+      #      - backend         
+            
+            
+      
+    
+            
+            
+            
+            
+            
+            
+            

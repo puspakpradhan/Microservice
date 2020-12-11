@@ -1,0 +1,43 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+</body>
+</html> -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="UTF-8">
+      <title>Books Shop Online</title>
+      <link rel="stylesheet" type="text/css" th:href="@{/styles.css}" />
+   </head>
+   <body>
+      <th:block th:include="/_header"></th:block>
+      <th:block th:include="/_menu"></th:block>
+       
+      <div class="page-title">Home Page!!!</div>
+      
+      <div>
+      
+      <!-- "${#request.userPrincipal.name}" -->
+      <input id="tockenID" name="tockenID"  type ="hidden"  th:value= "${tocken}" >
+      </div>
+      
+       <div class="demo-container">
+         <h4>Case study Demo content</h4>
+         <ul>
+             <li>View Product List</li>
+            <li>Buy Product/Add to cart</li>
+            <li>Place order</li>
+            <li>View order details</li>
+         </ul>
+      </div>
+       
+      <th:block th:include="/_footer"></th:block>
+       
+   </body>
+</html>
