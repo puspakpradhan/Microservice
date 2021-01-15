@@ -103,6 +103,7 @@ public class MainController {
 
 			
 	        }catch(Exception rcEx) {
+	        	rcEx.printStackTrace();
 				model.addAttribute("error", "Invalid User ID/password");
 				return "login";
 			}

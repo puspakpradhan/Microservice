@@ -21,13 +21,84 @@
     
    <body>
     
-      <th:block th:include="/_header"></th:block>
-      <th:block th:include="/_menu"></th:block>
+      <!-- <th:block th:include="/header"></th:block> -->
+      
+      <!-- Instead of /header include starts-->
+    <div class="header-container"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+ 
+   <div class="site-name">MS Case Study.</div>
+   
+   <div class="header-bar">
+      <th:block sec:authorize="isAuthenticated()">
+         Welcome
+         <!-- <a th:href="@{/admin/accountInfo}" th:utext="${#request.userPrincipal.name}">..</a> -->
+         <a th:href="@{/admin/accountInfo}" th:utext="Puspak">..</a>
+         &nbsp;|&nbsp;
+         <a th:href="@{/admin/logout}">Logout</a>
+      </th:block>
+       
+      <!-- <th:block sec:authorize="!isAuthenticated()">
+         <a th:href="@{/admin/login}">Login</a>
+      </th:block> -->
+   </div>
+   
+</div>
+      <!-- Instead of /header include end -->
+      
+      
+      <!-- <th:block th:include="/menu"></th:block> -->
+      
+      <!-- Instead of menu include starts -->
+      
+      <div class="menu-container"
+       xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" >
+       
+       
+        <div>
+      
+      <!-- "${#request.userPrincipal.name}" -->
+      <input id="tockenID" name="tockenID"  type ="hidden"  th:value= "${tocken}" >
+      </div>
+       <a th:href="@{/}">Home</a>
+       |
+       <a th:href="@{/productList}">
+       Product List
+       </a>
+       |
+       <a th:href="@{/shoppingCart}">
+       My Cart
+       </a>
+       |
+       <!-- <th:block sec:authorize="hasAnyRole('ROLE_MANAGER','ROLE_EMPLOYEE')"> -->
+          <!-- <a th:href="@{/admin/orderList}"> -->
+          <a th:href="@{/order/orderList}">
+          Order List
+          </a>
+          |
+       </th:block>
+       <!-- <th:block sec:authorize="hasRole('ROLE_MANAGER')">
+          <a th:href="@{/admin/product}">
+          Create Product
+          </a>
+          |
+       </th:block> -->
+    </div>
+      
+      <!-- Instead of menu include starts -->
+      
+
        
       <div class="page-title">Access Denied!</div>
       <h3 style="color:red;">Sorry, you can not access this page!</h3>
        
-      <th:block th:include="/_footer"></th:block>
+      <div class="footer-container" xmlns:th="http://www.thymeleaf.org">
+  
+   @Copy right <a href="/" target="_blank">IBM Microservice Reskill</a>
+     
+</div>
        
    </body>
 </html>
